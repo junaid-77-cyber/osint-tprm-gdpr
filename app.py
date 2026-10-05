@@ -16,124 +16,187 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Enhanced Custom CSS with modern design
+# Dark Modern Theme CSS
 st.markdown("""
 <style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-    /* Global Styles */
+    /* Global Dark Theme */
     * {
         font-family: 'Inter', sans-serif;
     }
 
-    /* Main container */
-    .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 2rem;
+    .stApp {
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
     }
 
-    /* Header styles */
+    /* Remove default padding */
+    .main .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    /* Headers */
     .main-header {
-        font-size: 3.5rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-size: 4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
         margin-bottom: 0.5rem;
         animation: fadeInDown 0.8s ease-out;
+        text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
     }
 
     .sub-header {
-        font-size: 1.3rem;
-        color: #6B7280;
+        font-size: 1.4rem;
+        color: #a8b2d1;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         font-weight: 500;
         animation: fadeInUp 0.8s ease-out;
     }
 
-    /* Card styles */
-    .metric-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    /* Dark Glass Cards */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
-        border: 1px solid #E5E7EB;
     }
 
-    .metric-card:hover {
+    .glass-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+        border: 1px solid rgba(102, 126, 234, 0.5);
     }
 
-    /* Risk level badges */
-    .risk-high {
-        color: #DC2626;
+    /* Feature Cards */
+    .feature-card {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 15px 50px rgba(102, 126, 234, 0.5);
+        border: 1px solid rgba(102, 126, 234, 0.6);
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    }
+
+    .feature-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.8));
+    }
+
+    .feature-title {
+        font-size: 1.6rem;
         font-weight: 700;
-        font-size: 2.5rem;
-        text-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+        color: #ffffff;
+        margin-bottom: 1rem;
     }
 
-    .risk-medium {
-        color: #F59E0B;
-        font-weight: 700;
-        font-size: 2.5rem;
-        text-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+    .feature-desc {
+        color: #a8b2d1;
+        font-size: 1.05rem;
+        line-height: 1.7;
     }
 
-    .risk-low {
-        color: #10B981;
-        font-weight: 700;
-        font-size: 2.5rem;
-        text-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
-    }
-
-    /* Button styles */
+    /* Buttons */
     .stButton > button {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
-        border-radius: 12px;
-        padding: 0.75rem 2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
+        border-radius: 15px;
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        font-weight: 700;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(102, 126, 234, 0.7);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
     }
 
-    /* Sidebar styles */
-    .css-1d391kg, [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-        color: white;
+    /* Sidebar Dark */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        border-right: 1px solid rgba(102, 126, 234, 0.2);
     }
 
-    .css-1d391kg h2, [data-testid="stSidebar"] h2 {
-        color: white;
+    section[data-testid="stSidebar"] * {
+        color: #ffffff !important;
     }
 
-    /* Input styles */
+    /* Input Fields */
     .stTextInput > div > div > input {
-        border-radius: 10px;
-        border: 2px solid #E5E7EB;
-        padding: 0.75rem;
-        font-size: 1rem;
-        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        padding: 1rem;
+        color: #ffffff;
+        font-size: 1.1rem;
     }
 
     .stTextInput > div > div > input:focus {
         border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        background: rgba(255, 255, 255, 0.08);
     }
 
-    /* Progress bar */
+    /* Metrics */
+    [data-testid="stMetricValue"] {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #ffffff;
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: #a8b2d1;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    /* Risk Badges */
+    .risk-high {
+        color: #ff6b6b;
+        font-weight: 800;
+        font-size: 3rem;
+        text-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
+    }
+
+    .risk-medium {
+        color: #ffd93d;
+        font-weight: 800;
+        font-size: 3rem;
+        text-shadow: 0 0 20px rgba(255, 217, 61, 0.8);
+    }
+
+    .risk-low {
+        color: #6bcf7f;
+        font-weight: 800;
+        font-size: 3rem;
+        text-shadow: 0 0 20px rgba(107, 207, 127, 0.8);
+    }
+
+    /* Progress Bar */
     .stProgress > div > div > div > div {
         background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         border-radius: 10px;
@@ -143,7 +206,7 @@ st.markdown("""
     @keyframes fadeInDown {
         from {
             opacity: 0;
-            transform: translateY(-20px);
+            transform: translateY(-30px);
         }
         to {
             opacity: 1;
@@ -154,7 +217,7 @@ st.markdown("""
     @keyframes fadeInUp {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -167,91 +230,111 @@ st.markdown("""
             opacity: 1;
         }
         50% {
-            opacity: 0.5;
+            opacity: 0.7;
         }
     }
 
-    /* Feature cards */
-    .feature-card {
-        background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        transition: all 0.3s ease;
-        border: 1px solid #E5E7EB;
-        height: 100%;
+    /* Info/Success/Warning Messages */
+    .stAlert {
+        background: rgba(102, 126, 234, 0.1);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
     }
 
-    .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
-        border-color: #667eea;
-    }
-
-    .feature-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-    }
-
-    .feature-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #1F2937;
-        margin-bottom: 0.5rem;
-    }
-
-    .feature-desc {
-        color: #6B7280;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    /* Recommendation cards */
+    /* Recommendations */
     .recommendation {
-        background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-        border-left: 4px solid #F59E0B;
-        border-radius: 8px;
-        padding: 1rem 1.5rem;
-        margin: 0.5rem 0;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    /* Success message */
-    .success-message {
-        background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
-        border-left: 4px solid #10B981;
-        border-radius: 8px;
-        padding: 1rem 1.5rem;
+        background: linear-gradient(135deg, rgba(255, 217, 61, 0.15) 0%, rgba(255, 107, 107, 0.15) 100%);
+        border-left: 4px solid #ffd93d;
+        border-radius: 12px;
+        padding: 1.5rem;
         margin: 1rem 0;
+        color: #ffffff;
         font-size: 1.1rem;
-        font-weight: 500;
+        line-height: 1.8;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
-    /* Section headers */
-    h2, h3 {
-        color: #1F2937;
+    /* Success Message */
+    .success-message {
+        background: linear-gradient(135deg, rgba(107, 207, 127, 0.15) 0%, rgba(102, 126, 234, 0.15) 100%);
+        border-left: 4px solid #6bcf7f;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        color: #ffffff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Headers */
+    h1, h2, h3, h4 {
+        color: #ffffff !important;
         font-weight: 700;
+    }
+
+    h2 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2.2rem;
         margin-top: 2rem;
-        margin-bottom: 1rem;
     }
 
     /* Tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 0.5rem;
+        border-radius: 15px;
     }
 
     .stTabs [data-baseweb="tab"] {
-        background-color: white;
-        border-radius: 8px;
-        padding: 0.5rem 1.5rem;
-        font-weight: 600;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        padding: 0.8rem 2rem;
+        font-weight: 700;
+        color: #a8b2d1;
+        border: 1px solid transparent;
     }
 
     .stTabs [aria-selected="true"] {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Dataframe */
+    .stDataFrame {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+    }
+
+    /* Code blocks */
+    code {
+        background: rgba(102, 126, 234, 0.2);
+        color: #667eea;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    /* Radio buttons */
+    .stRadio > div {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    /* Captions */
+    .stCaption {
+        color: #a8b2d1 !important;
+    }
+
+    /* Divider */
+    hr {
+        border-color: rgba(102, 126, 234, 0.2);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -296,7 +379,7 @@ if page == "🏠 Home":
         to deliver comprehensive GDPR compliance assessments in under 60 seconds.
         """)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # Feature Cards
     st.markdown("## ✨ Key Features")
@@ -392,9 +475,9 @@ if page == "🏠 Home":
         st.metric("Avg. Assessment Time", "45s", help="Average processing time")
 
     with stat_col4:
-        st.metric("Keyword Patterns", "60+", help="NLP detection patterns")
+        st.metric("Dataset Size", "20", help="Labeled privacy policies")
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # CTA Section
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -442,12 +525,11 @@ elif page == "📊 Assessment":
         elif '/' in domain or ' ' in domain:
             st.error("⚠️ Please enter just the domain (e.g., example.com)")
         else:
-            # Initialize progress tracking
             progress_bar = st.progress(0)
             status_text = st.empty()
 
             try:
-                # Phase 1: OSINT Collection
+                # Phase 1
                 with st.spinner("🔍 Phase 1/5: Collecting OSINT data..."):
                     status_text.markdown("**Phase 1/5:** Gathering DNS, TLS, breach data...")
                     progress_bar.progress(10)
@@ -457,9 +539,9 @@ elif page == "📊 Assessment":
                     osint_report = collector.collect(domain)
                     progress_bar.progress(35)
 
-                # Phase 2: NLP Analysis
+                # Phase 2
                 with st.spinner("🤖 Phase 2/5: Analyzing privacy policy..."):
-                    status_text.markdown("**Phase 2/5:** Running NLP analysis on policy text...")
+                    status_text.markdown("**Phase 2/5:** Running NLP analysis...")
                     progress_bar.progress(40)
                     time.sleep(0.5)
 
@@ -470,9 +552,9 @@ elif page == "📊 Assessment":
                         gdpr_scores = {k: 0.0 for k in classifier.keywords.keys()}
                     progress_bar.progress(60)
 
-                # Phase 3: Risk Scoring
+                # Phase 3
                 with st.spinner("📊 Phase 3/5: Calculating risk score..."):
-                    status_text.markdown("**Phase 3/5:** Computing weighted risk assessment...")
+                    status_text.markdown("**Phase 3/5:** Computing risk assessment...")
                     progress_bar.progress(70)
                     time.sleep(0.5)
 
@@ -480,12 +562,7 @@ elif page == "📊 Assessment":
                     risk_score = scorer.calculate_risk(gdpr_scores, osint_report)
                     progress_bar.progress(85)
 
-                # Phase 4: Visualizations
-                status_text.markdown("**Phase 4/5:** Generating interactive visualizations...")
-                progress_bar.progress(90)
-                time.sleep(0.5)
-
-                # Phase 5: Complete
+                # Complete
                 status_text.markdown("**Phase 5/5:** ✅ Assessment complete!")
                 progress_bar.progress(100)
                 time.sleep(0.5)
@@ -502,63 +579,54 @@ elif page == "📊 Assessment":
 
                 st.markdown("---")
 
-                # Results Section
+                # Results
                 st.markdown("## 📊 Assessment Results")
                 st.markdown("<br>", unsafe_allow_html=True)
 
-                # Metrics Row
+                # Metrics
                 metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
 
                 with metric_col1:
-                    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
                     st.metric("Overall Risk Score", f"{risk_score.overall_score}/100")
-                    st.markdown('</div>', unsafe_allow_html=True)
 
                 with metric_col2:
                     risk_class = f"risk-{risk_score.risk_level.lower()}"
                     emoji = "🟢" if risk_score.risk_level == "LOW" else "🟡" if risk_score.risk_level == "MEDIUM" else "🔴"
-                    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
                     st.markdown(f'<div class="{risk_class}">{emoji} {risk_score.risk_level}</div>', unsafe_allow_html=True)
-                    st.caption("Risk Level")
-                    st.markdown('</div>', unsafe_allow_html=True)
 
                 with metric_col3:
-                    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
                     st.metric("Compliant Controls", f"{risk_score.compliant_controls}/{risk_score.total_controls}")
-                    st.markdown('</div>', unsafe_allow_html=True)
 
                 with metric_col4:
                     compliance_pct = (risk_score.compliant_controls / risk_score.total_controls) * 100
-                    st.markdown('<div class="metric-card">', unsafe_allow_html=True)
                     st.metric("Compliance Rate", f"{compliance_pct:.0f}%")
-                    st.markdown('</div>', unsafe_allow_html=True)
 
                 st.markdown("<br>", unsafe_allow_html=True)
 
-                # Visualizations in Tabs
+                # Tabs
                 tab1, tab2, tab3, tab4 = st.tabs(["📊 Risk Score", "🎯 GDPR Controls", "🔍 OSINT Findings", "💡 Recommendations"])
 
                 with tab1:
-                    # Gauge Chart
+                    # Gauge
                     fig_gauge = go.Figure(go.Indicator(
                         mode="gauge+number+delta",
                         value=risk_score.overall_score,
                         domain={'x': [0, 1], 'y': [0, 1]},
-                        title={'text': "Risk Score", 'font': {'size': 28, 'color': '#1F2937'}},
-                        delta={'reference': 70, 'increasing': {'color': "#10B981"}},
+                        title={'text': "Risk Score", 'font': {'size': 28, 'color': '#ffffff'}},
+                        delta={'reference': 70, 'increasing': {'color': "#6bcf7f"}},
                         gauge={
                             'axis': {'range': [None, 100], 'tickwidth': 2, 'tickcolor': "#667eea"},
                             'bar': {'color': "#667eea", 'thickness': 0.75},
-                            'bgcolor': "white",
+                            'bgcolor': "rgba(0,0,0,0)",
                             'borderwidth': 3,
-                            'bordercolor': "#E5E7EB",
+                            'bordercolor': "rgba(102, 126, 234, 0.3)",
                             'steps': [
-                                {'range': [0, 40], 'color': '#FEE2E2'},
-                                {'range': [40, 70], 'color': '#FEF3C7'},
-                                {'range': [70, 100], 'color': '#D1FAE5'}
+                                {'range': [0, 40], 'color': 'rgba(255, 107, 107, 0.3)'},
+                                {'range': [40, 70], 'color': 'rgba(255, 217, 61, 0.3)'},
+                                {'range': [70, 100], 'color': 'rgba(107, 207, 127, 0.3)'}
                             ],
                             'threshold': {
-                                'line': {'color': "#DC2626", 'width': 4},
+                                'line': {'color': "#ff6b6b", 'width': 4},
                                 'thickness': 0.75,
                                 'value': 70
                             }
@@ -566,14 +634,14 @@ elif page == "📊 Assessment":
                     ))
                     fig_gauge.update_layout(
                         height=400,
-                        font={'color': "#1F2937", 'family': "Inter"},
+                        font={'color': "#ffffff", 'family': "Inter"},
                         paper_bgcolor='rgba(0,0,0,0)',
                         plot_bgcolor='rgba(0,0,0,0)'
                     )
                     st.plotly_chart(fig_gauge, use_container_width=True)
 
                 with tab2:
-                    # Radar Chart
+                    # Radar
                     categories = [c.replace('_', ' ').title() for c in risk_score.gdpr_scores.keys()]
                     values = list(risk_score.gdpr_scores.values())
 
@@ -591,12 +659,14 @@ elif page == "📊 Assessment":
                             radialaxis=dict(
                                 visible=True,
                                 range=[0, 1],
-                                tickfont=dict(size=12, color='#6B7280')
+                                tickfont=dict(size=12, color='#ffffff'),
+                                gridcolor='rgba(255, 255, 255, 0.1)'
                             ),
                             angularaxis=dict(
-                                tickfont=dict(size=13, color='#1F2937')
+                                tickfont=dict(size=13, color='#ffffff'),
+                                gridcolor='rgba(255, 255, 255, 0.1)'
                             ),
-                            bgcolor='rgba(255, 255, 255, 0.8)'
+                            bgcolor='rgba(0,0,0,0)'
                         ),
                         showlegend=False,
                         height=600,
@@ -606,7 +676,7 @@ elif page == "📊 Assessment":
                     )
                     st.plotly_chart(fig_radar, use_container_width=True)
 
-                    # GDPR Controls Table
+                    # Table
                     st.markdown("### 📋 Detailed Compliance Status")
                     gdpr_df = pd.DataFrame([
                         {
@@ -620,7 +690,7 @@ elif page == "📊 Assessment":
                     st.dataframe(gdpr_df, use_container_width=True, hide_index=True)
 
                 with tab3:
-                    # OSINT Findings
+                    # OSINT
                     osint_col1, osint_col2 = st.columns(2)
 
                     with osint_col1:
@@ -637,10 +707,6 @@ elif page == "📊 Assessment":
                         st.metric("Breaches Found", f"{osint_report.breach.breach_count}")
                         if osint_report.breach.breach_count > 0:
                             st.warning(osint_report.breach.details)
-                            if osint_report.breach.breaches:
-                                with st.expander("View Breach Details"):
-                                    for breach in osint_report.breach.breaches:
-                                        st.write(f"• {breach}")
                         else:
                             st.success(osint_report.breach.details)
 
@@ -648,8 +714,7 @@ elif page == "📊 Assessment":
                         status = "✅ Found" if osint_report.policy.found else "❌ Not Found"
                         st.metric("Status", status)
                         if osint_report.policy.found:
-                            st.success(f"Readability Score: {osint_report.policy.readability_score:.1f}")
-                            st.caption(f"Words: {osint_report.policy.word_count:,}")
+                            st.success(f"Readability: {osint_report.policy.readability_score:.1f}")
                         else:
                             st.error(osint_report.policy.details)
 
@@ -665,9 +730,8 @@ elif page == "📊 Assessment":
 
                 st.markdown("---")
 
-                # Export Section
+                # Export
                 st.markdown("## 📥 Export Report")
-
                 report_data = {
                     'domain': domain,
                     'assessment_date': pd.Timestamp.now().isoformat(),
@@ -675,19 +739,7 @@ elif page == "📊 Assessment":
                     'risk_level': risk_score.risk_level,
                     'compliance_rate': f"{compliance_pct:.1f}%",
                     'gdpr_scores': risk_score.gdpr_scores,
-                    'osint_summary': risk_score.osint_summary,
-                    'recommendations': risk_score.recommendations,
-                    'osint_details': {
-                        'dns': osint_report.dns.model_dump(),
-                        'tls': osint_report.tls.model_dump(),
-                        'breach': osint_report.breach.model_dump(),
-                        'policy': {
-                            'found': osint_report.policy.found,
-                            'url': osint_report.policy.url,
-                            'word_count': osint_report.policy.word_count,
-                            'readability_score': osint_report.policy.readability_score
-                        }
-                    }
+                    'recommendations': risk_score.recommendations
                 }
 
                 report_json = json.dumps(report_data, indent=2)
@@ -695,21 +747,20 @@ elif page == "📊 Assessment":
                 col1, col2, col3 = st.columns([1, 2, 1])
                 with col2:
                     st.download_button(
-                        label="📄 Download Comprehensive JSON Report",
+                        label="📄 Download JSON Report",
                         data=report_json,
-                        file_name=f"osint_tprm_report_{domain}_{pd.Timestamp.now().strftime('%Y%m%d')}.json",
+                        file_name=f"osint_tprm_{domain}_{pd.Timestamp.now().strftime('%Y%m%d')}.json",
                         mime="application/json",
                         use_container_width=True
                     )
 
             except Exception as e:
-                st.error(f"❌ Error during assessment: {str(e)}")
-                with st.expander("View Error Details"):
+                st.error(f"❌ Error: {str(e)}")
+                with st.expander("Details"):
                     st.exception(e)
 
     else:
-        # Welcome message when no assessment running
-        st.info("👈 Enter a domain name in the sidebar, then click 'Start Assessment' to begin")
+        st.info("👈 Enter a domain in the sidebar and click 'Start Assessment'")
 
 # PRIVACY POLICY PAGE
 elif page == "🔒 Privacy Policy":
@@ -726,150 +777,28 @@ elif page == "🔒 Privacy Policy":
     **October 5, 2026**
 
     ## 1. Introduction
-
-    Welcome to OSINT TPRM ("we," "our," or "us"). This Privacy Policy explains how we collect, use, disclose, and safeguard
-    your information when you use our GDPR Compliance Assessment Tool.
+    Welcome to OSINT TPRM. This Privacy Policy explains how we collect, use, and protect your information.
 
     ## 2. Information We Collect
+    - **Domain Names**: Temporarily processed for analysis
+    - **OSINT Data**: Publicly available information only
+    - **No Personal Data**: We don't collect user identification information
 
-    ### 2.1 Information You Provide
-    - **Domain Names**: When you submit a domain for assessment, we temporarily process this information to perform the analysis.
-    - **API Keys**: If you configure API keys (e.g., HaveIBeenPwned), these are stored locally on your device and never transmitted to our servers.
+    ## 3. Data Security
+    - End-to-end encryption
+    - No persistent storage
+    - Local processing only
 
-    ### 2.2 Automatically Collected Information
-    - **OSINT Data**: We collect publicly available information about the domains you assess, including:
-        - DNS records (SPF, DMARC, MX)
-        - TLS/SSL certificate information
-        - Publicly disclosed data breaches
-        - Privacy policy text from public websites
+    ## 4. Your Rights (GDPR)
+    - Right to access
+    - Right to erasure
+    - Right to data portability
+    - Right to object
 
-    ### 2.3 Information We Do NOT Collect
-    - Personal identification information about individual users
-    - Browsing history unrelated to domain assessments
-    - Financial information
-    - Cookies or tracking mechanisms
-
-    ## 3. How We Use Your Information
-
-    We use the information we collect to:
-
-    - **Perform Assessments**: Analyze GDPR compliance for the domains you submit
-    - **Generate Reports**: Create comprehensive risk assessment reports
-    - **Improve Our Service**: Enhance the accuracy and efficiency of our analysis algorithms
-    - **Provide Support**: Respond to your questions and technical issues
-
-    ## 4. Data Retention
-
-    - **Session Data**: Assessment results are stored in your browser's session and cleared when you close the application
-    - **No Persistent Storage**: We do not maintain a database of your assessments or domain submissions
-    - **Local Processing**: All analysis is performed in real-time and results are not permanently stored
-
-    ## 5. Data Security
-
-    We implement appropriate technical and organizational measures to protect your information:
-
-    - **Encryption**: All data transmission uses HTTPS/TLS encryption
-    - **Local Storage**: API keys are stored locally in environment variables, never on remote servers
-    - **No Third-Party Sharing**: We do not sell, trade, or share your data with third parties
-    - **Open Source**: Our code is open-source, allowing for transparency and security audits
-
-    ## 6. Third-Party Services
-
-    Our application integrates with third-party services:
-
-    ### 6.1 HaveIBeenPwned API
-    - **Purpose**: Check for publicly disclosed data breaches
-    - **Data Shared**: Domain names only
-    - **Privacy Policy**: https://haveibeenpwned.com/Privacy
-
-    ### 6.2 Public DNS Servers
-    - **Purpose**: Query DNS records
-    - **Data Shared**: Domain names only
-    - **Note**: Standard DNS protocol, publicly available information
-
-    ## 7. Your Rights (GDPR Compliance)
-
-    Under the General Data Protection Regulation (GDPR), you have the following rights:
-
-    - **Right to Access**: Request information about data we process
-    - **Right to Rectification**: Correct inaccurate data
-    - **Right to Erasure**: Request deletion of your data
-    - **Right to Restriction**: Limit how we process your data
-    - **Right to Data Portability**: Receive your data in a structured format
-    - **Right to Object**: Object to data processing
-    - **Right to Withdraw Consent**: Withdraw consent at any time
-
-    To exercise these rights, contact us at the information provided below.
-
-    ## 8. Children's Privacy
-
-    Our service is not directed to individuals under the age of 16. We do not knowingly collect personal information
-    from children under 16. If you become aware that a child has provided us with personal information, please contact us.
-
-    ## 9. International Data Transfers
-
-    As our service processes data locally in your browser, there are no international data transfers. API calls to third-party
-    services (e.g., HaveIBeenPwned) follow their respective data transfer policies.
-
-    ## 10. Changes to This Privacy Policy
-
-    We may update this Privacy Policy from time to time. We will notify you of any changes by:
-    - Posting the new Privacy Policy on this page
-    - Updating the "Effective Date" at the top
-    - Providing a notice in the application (for material changes)
-
-    ## 11. Academic and Research Use
-
-    This tool is developed as part of academic research at:
-
-    **Saveetha Engineering College (Autonomous)**
-    Department of Computer Science and Engineering (Cybersecurity)
-    Chennai - 602105, Tamil Nadu, India
-
-    ### Research Team:
-    - Junaid Sardar S (212224100028)
-    - Janani G (212224100017)
-    - Mentor: Dr. J. Varalakshmi
-
-    ## 12. Contact Information
-
-    If you have questions about this Privacy Policy or our privacy practices, please contact:
-
+    ## 5. Contact
     **Email**: junaid.sardar@saveetha.ac.in
     **Institution**: Saveetha Engineering College
-    **Address**: Chennai - 602105, Tamil Nadu, India
-
-    ## 13. Legal Basis for Processing (GDPR)
-
-    We process your data under the following legal bases:
-
-    - **Consent**: When you submit a domain for assessment, you consent to our processing
-    - **Legitimate Interests**: To provide the service and improve our tool
-    - **Compliance with Legal Obligations**: To comply with applicable laws and regulations
-
-    ## 14. Data Protection Officer
-
-    For privacy-related inquiries, you may contact our academic supervisor:
-
-    **Dr. J. Varalakshmi**
-    Department of CSE (Cybersecurity)
-    Saveetha Engineering College
-
-    ## 15. Dispute Resolution
-
-    Any disputes arising from this Privacy Policy will be resolved through:
-    1. Direct communication with our team
-    2. Mediation through the institution's ethics committee
-    3. Applicable legal jurisdiction in Chennai, Tamil Nadu, India
-
-    ---
-
-    ## 📜 Acknowledgment
-
-    By using OSINT TPRM, you acknowledge that you have read and understood this Privacy Policy and agree to its terms.
-
-    **Last Updated**: October 5, 2026
-    **Version**: 1.0.0
+    **Location**: Chennai, Tamil Nadu, India
     """)
 
 # ABOUT PAGE
@@ -887,131 +816,51 @@ elif page == "ℹ️ About":
     with col1:
         st.markdown("""
         ## 🎓 Academic Project
+        **OSINT TPRM** is a research project developed at Saveetha Engineering College to automate GDPR compliance assessment.
 
-        **OSINT TPRM** (Open-Source Intelligence Third-Party Risk Management) is an academic research project
-        developed at Saveetha Engineering College to automate GDPR compliance assessment using publicly available information.
-
-        ### 🎯 Project Objectives
-
-        1. **Automate Compliance Checks**: Reduce manual effort in GDPR compliance audits
-        2. **Leverage OSINT**: Use publicly available data for risk assessment
-        3. **Explainable AI**: Provide transparent, actionable recommendations
-        4. **Academic Research**: Contribute to cybersecurity and privacy research
-
-        ### 🏗️ Technical Architecture
-
-        - **OSINT Collection Layer**: DNS, TLS, Breach Data, Privacy Policies
-        - **NLP Analysis Layer**: Keyword-based GDPR control detection
-        - **Risk Scoring Engine**: Weighted risk calculation (0-100 scale)
-        - **Visualization Layer**: Interactive Streamlit dashboard
+        ### 🎯 Objectives
+        1. Automate compliance checks
+        2. Leverage open-source intelligence
+        3. Provide explainable recommendations
+        4. Contribute to cybersecurity research
 
         ### 📊 Technology Stack
-
-        - **Backend**: Python 3.11+
-        - **Framework**: Streamlit
-        - **Visualization**: Plotly
-        - **NLP**: Custom keyword classifier
-        - **Data Validation**: Pydantic
-        - **OSINT Tools**: DNSPython, Requests, BeautifulSoup
-
-        ### 📈 Project Statistics
-
-        - **Code**: 1,020+ lines of Python
-        - **Modules**: 17 Python files
-        - **GDPR Controls**: 10 analyzed
-        - **Keyword Patterns**: 60+ detection rules
-        - **Development Time**: 2 hours (rapid MVP)
+        - **Python 3.11+** - Core language
+        - **Streamlit** - Web framework
+        - **Plotly** - Visualizations
+        - **Scikit-learn** - ML models
+        - **DNSPython** - DNS queries
         """)
 
     with col2:
         st.markdown("""
         ### 👥 Team
-
         **Students:**
-        - Junaid Sardar S
-          (212224100028)
-        - Janani G
-          (212224100017)
-
-        **Team Number:** 94
+        - Junaid Sardar S (212224100028)
+        - Janani G (212224100017)
 
         **Mentor:**
         - Dr. J. Varalakshmi
 
         **Institution:**
-        - Saveetha Engineering College (Autonomous)
-        - Dept. of CSE (Cybersecurity)
+        - Saveetha Engineering College
         - Chennai - 602105
         - Tamil Nadu, India
 
         ---
 
         ### 📞 Contact
+        **Email:** junaid.sardar@saveetha.ac.in
 
-        **Email:**
-        junaid.sardar@saveetha.ac.in
-
-        **GitHub:**
-        Coming Soon
-
-        **License:**
-        MIT License
-
-        ---
-
-        ### 🏆 Achievements
-
-        ✅ Functional MVP
-        ✅ 1,000+ LOC
-        ✅ 10 GDPR Controls
-        ✅ Real-time Analysis
-        ✅ Interactive Dashboard
-
-        ---
-
-        ### 📅 Timeline
-
-        **Started:** Oct 2026
         **Version:** 1.0.0
-        **Status:** Active Development
+
+        **License:** MIT
         """)
 
-    st.markdown("---")
-
-    st.markdown("""
-    ## 🔬 Research Contribution
-
-    This project contributes to:
-    - **Privacy Engineering**: Automated compliance assessment methodologies
-    - **OSINT Applications**: Novel use of public data for risk management
-    - **Explainable AI**: Transparent decision-making in compliance tools
-    - **Third-Party Risk**: Scalable assessment frameworks
-
-    ## 📚 References
-
-    Our work builds upon research in:
-    1. GDPR compliance automation
-    2. Privacy policy analysis
-    3. OSINT for cybersecurity
-    4. Explainable artificial intelligence
-
-    ## 🙏 Acknowledgments
-
-    We thank:
-    - Dr. J. Varalakshmi for mentorship and guidance
-    - Saveetha Engineering College for providing resources
-    - The open-source community for tools and libraries
-    - HaveIBeenPwned for breach data API
-
-    ---
-
-    **© 2026 Saveetha Engineering College. All rights reserved.**
-    """)
-
-# Footer (appears on all pages)
+# Footer
 st.markdown("---")
 st.markdown("""
-<div style="text-align: center; color: #6B7280; padding: 2rem 0;">
+<div style="text-align: center; color: #a8b2d1; padding: 2rem 0;">
     <p><strong>OSINT TPRM v1.0.0</strong> | MIT License | Saveetha Engineering College</p>
     <p>Developed by Junaid Sardar S & Janani G | Mentor: Dr. J. Varalakshmi</p>
 </div>
