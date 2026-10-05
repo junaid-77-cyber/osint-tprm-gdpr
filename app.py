@@ -592,7 +592,7 @@ if start_button and domain:
             progress_bar.progress(60)
 
             scorer = RiskScorer()
-            risk_score = scorer.calculate_risk(nlp_results, osint_report)
+            risk_result = scorer.calculate_risk(nlp_results, osint_report)
             time.sleep(1)
 
             # Phase 4: Evidence Fusion
@@ -608,7 +608,7 @@ if start_button and domain:
             # Store results
             st.session_state.result = {
                 'domain': domain,
-                'risk_score': risk_score,
+                'risk_result': risk_result,
                 'nlp_results': nlp_results,
                 'osint_report': osint_report
             }
@@ -626,7 +626,8 @@ if start_button and domain:
 # RESULTS SECTION
 if st.session_state.assessment_complete and st.session_state.result:
     result = st.session_state.result
-    risk_score = result['risk_score']
+    risk_result = result['risk_result']
+    risk_score = risk_result.overall_score
     nlp_results = result['nlp_results']
     osint_report = result['osint_report']
 
@@ -784,24 +785,35 @@ if st.session_state.assessment_complete and st.session_state.result:
     st.markdown('<div class="result-card">', unsafe_allow_html=True)
     st.markdown('<div class="result-title">💡 Recommendations</div>', unsafe_allow_html=True)
 
-    # Generate recommendations based on low scores
-    recommendations = []
-    for control_key, control_name in controls_map.items():
-        score = nlp_results.get(control_key, 0.0)
-        if score < 0.5:
-            recommendations.append((control_name, score))
+    # Display compliance summary
+    st.markdown(f"""
+    <div class="info-box">
+        <div class="info-box-text">
+            <strong>Compliance Status:</strong> {risk_result.compliant_controls} out of {risk_result.total_controls} controls meet threshold (≥60%)
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    if recommendations:
-        recommendations.sort(key=lambda x: x[1])  # Sort by score (lowest first)
+    st.markdown("<br>", unsafe_allow_html=True)
 
-        for control_name, score in recommendations[:5]:  # Top 5 recommendations
+    # Display recommendations from risk scorer
+    if risk_result.recommendations:
+        for rec in risk_result.recommendations:
+            # Parse recommendation to determine severity
+            if "🚨" in rec or "breach" in rec.lower():
+                box_class = "recommendation-box"
+                style = "border-left: 6px solid #DC2626;"
+            elif "⚠️" in rec:
+                box_class = "recommendation-box"
+                style = "border-left: 6px solid #F59E0B;"
+            else:
+                box_class = "info-box"
+                style = "border-left: 6px solid #10B981;"
+
             st.markdown(f"""
-            <div class="recommendation-box">
-                <div class="recommendation-title">⚠️ {control_name}</div>
+            <div class="{box_class}" style="{style}">
                 <div class="recommendation-text">
-                    <strong>Current Score:</strong> {score*100:.1f}%<br>
-                    <strong>Action:</strong> Review and enhance {control_name.lower()} measures in your privacy policy.
-                    Ensure clear documentation and implementation of GDPR requirements.
+                    {rec}
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -826,34 +838,66 @@ if st.session_state.assessment_complete and st.session_state.result:
         st.dataframe(df, use_container_width=True, hide_index=True)
 
     with tab2:
-        st.markdown("#### DNS Security")
-        dns_secure = osint_report.dns.has_spf and osint_report.dns.has_dmarc
-        st.write(f"Status: {'✅ Secure' if dns_secure else '⚠️ Issues Detected'}")
-        st.write(f"- SPF Record: {'✅' if osint_report.dns.has_spf else '❌'}")
-        st.write(f"- DMARC Record: {'✅' if osint_report.dns.has_dmarc else '❌'}")
-        st.write(f"- DNSSEC: {'✅' if osint_report.dns.has_dnssec else '❌'}")
+        st.markdown("#### 🔍 OSINT Intelligence Summary")
+        st.info(risk_result.osint_summary)
 
-        st.markdown("#### TLS Certificate")
-        st.write(f"Status: {'✅ Valid' if osint_report.tls.is_secure else '⚠️ Invalid or Expired'}")
-        if osint_report.tls.tls_version:
-            st.write(f"- TLS Version: {osint_report.tls.tls_version}")
-        if osint_report.tls.days_until_expiry:
-            st.write(f"- Days Until Expiry: {osint_report.tls.days_until_expiry}")
+        st.markdown("<br>", unsafe_allow_html=True)
 
-        st.markdown("#### Data Breaches")
-        if osint_report.breach.has_breaches:
-            st.write(f"⚠️ {osint_report.breach.breach_count} breach(es) found in HaveIBeenPwned database")
-            if osint_report.breach.breaches:
-                for breach in osint_report.breach.breaches[:5]:
-                    st.write(f"  - {breach}")
-        else:
-            st.write("✅ No known breaches found")
+        col1, col2 = st.columns(2)
 
-        st.markdown("#### Privacy Policy")
-        st.write(f"Status: {'✅ Found and analyzed' if osint_report.policy.found else '❌ Not found'}")
-        if osint_report.policy.found:
-            st.write(f"- Word Count: {osint_report.policy.word_count}")
-            st.write(f"- Readability Score: {osint_report.policy.readability_score:.1f}")
+        with col1:
+            st.markdown("#### DNS Security")
+            dns_secure = osint_report.dns.has_spf and osint_report.dns.has_dmarc
+            st.write(f"**Status:** {'✅ Secure' if dns_secure else '⚠️ Issues Detected'}")
+            st.write(f"**Score:** {osint_report.dns.security_score:.0f}/100")
+            st.write(f"- SPF Record: {'✅' if osint_report.dns.has_spf else '❌'}")
+            st.write(f"- DMARC Record: {'✅' if osint_report.dns.has_dmarc else '❌'}")
+            st.write(f"- DNSSEC: {'✅' if osint_report.dns.has_dnssec else '❌'}")
+            st.write(f"- MX Records: {osint_report.dns.mx_records}")
+
+            st.markdown("#### Data Breaches")
+            if osint_report.breach.has_breaches:
+                st.write(f"**Status:** ⚠️ {osint_report.breach.breach_count} breach(es) found")
+                st.write(f"**Score:** {osint_report.breach.security_score:.0f}/100")
+                if osint_report.breach.breaches:
+                    st.write("**Breaches:**")
+                    for breach in osint_report.breach.breaches[:5]:
+                        st.write(f"  - {breach}")
+            elif osint_report.breach.error:
+                st.write(f"**Status:** ⚠️ {osint_report.breach.error}")
+            else:
+                st.write("**Status:** ✅ No known breaches")
+                st.write(f"**Score:** {osint_report.breach.security_score:.0f}/100")
+
+        with col2:
+            st.markdown("#### TLS Certificate")
+            st.write(f"**Status:** {'✅ Valid' if osint_report.tls.is_secure else '⚠️ Invalid or Expired'}")
+            st.write(f"**Score:** {osint_report.tls.security_score:.0f}/100")
+            if osint_report.tls.tls_version:
+                st.write(f"- TLS Version: {osint_report.tls.tls_version}")
+            if osint_report.tls.days_until_expiry is not None:
+                expiry_emoji = "✅" if osint_report.tls.days_until_expiry > 30 else "⚠️"
+                st.write(f"- Days Until Expiry: {expiry_emoji} {osint_report.tls.days_until_expiry}")
+            if osint_report.tls.error:
+                st.write(f"- Error: {osint_report.tls.error}")
+
+            st.markdown("#### Privacy Policy")
+            st.write(f"**Status:** {'✅ Found and analyzed' if osint_report.policy.found else '❌ Not found'}")
+            if osint_report.policy.found:
+                st.write(f"- URL: {osint_report.policy.url}")
+                st.write(f"- Word Count: {osint_report.policy.word_count:,}")
+
+                # Readability interpretation
+                readability = osint_report.policy.readability_score
+                if readability >= 60:
+                    readability_label = "Easy ✅"
+                elif readability >= 30:
+                    readability_label = "Moderate ⚠️"
+                else:
+                    readability_label = "Difficult ❌"
+                st.write(f"- Readability: {readability:.1f} ({readability_label})")
+            elif osint_report.policy.error:
+                st.write(f"- Error: {osint_report.policy.error}")
 
     with tab3:
         export_data = {
