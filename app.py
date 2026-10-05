@@ -831,12 +831,55 @@ if st.session_state.assessment_complete and st.session_state.result:
     tab1, tab2, tab3, tab4 = st.tabs(["📋 Control Scores", "🔍 OSINT Details", "🔬 Policy Analysis", "📥 Export"])
 
     with tab1:
-        df = pd.DataFrame({
-            'GDPR Control': list(controls_map.values()),
-            'Compliance Score': [f"{nlp_results.get(k, 0.0)*100:.1f}%" for k in controls_map.keys()],
-            'Status': ['✅ Pass' if nlp_results.get(k, 0.0) >= 0.5 else '❌ Fail' for k in controls_map.keys()]
-        })
+        st.markdown("#### 📊 GDPR Control Scores")
+        st.info("**Pass Threshold:** 60% or higher (0.60 confidence score)")
+
+        # Create detailed dataframe with better formatting
+        control_data = []
+        for control_key, control_name in controls_map.items():
+            score = nlp_results.get(control_key, 0.0)
+            score_pct = score * 100
+
+            # Determine status based on 60% threshold (matching risk_scorer.py)
+            if score >= 0.6:
+                status = "✅ PASS"
+                status_color = "🟢"
+            elif score >= 0.4:
+                status = "⚠️ BORDERLINE"
+                status_color = "🟡"
+            else:
+                status = "❌ FAIL"
+                status_color = "🔴"
+
+            control_data.append({
+                'GDPR Control': control_name,
+                'Score': f"{score_pct:.1f}%",
+                'Status': f"{status_color} {status}",
+                'Confidence': f"{score:.3f}"
+            })
+
+        df = pd.DataFrame(control_data)
+
+        # Show summary stats
+        passing = sum(1 for item in control_data if "PASS" in item['Status'])
+        borderline = sum(1 for item in control_data if "BORDERLINE" in item['Status'])
+        failing = sum(1 for item in control_data if "FAIL" in item['Status'])
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("✅ Passing", f"{passing}/10", f"{passing*10}%")
+        with col2:
+            st.metric("⚠️ Borderline", f"{borderline}/10", f"{borderline*10}%")
+        with col3:
+            st.metric("❌ Failing", f"{failing}/10", f"{failing*10}%")
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Display table
         st.dataframe(df, use_container_width=True, hide_index=True)
+
+        # Add legend
+        st.caption("**Legend:** ✅ PASS (≥60%) | ⚠️ BORDERLINE (40-59%) | ❌ FAIL (<40%)")
 
     with tab2:
         st.markdown("#### 🔍 OSINT Intelligence Summary")
