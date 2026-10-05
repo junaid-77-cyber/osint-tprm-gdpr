@@ -1,0 +1,64 @@
+{
+  "controls": {
+    "data_minimization": {
+      "name": "Data Minimization",
+      "description": "Collects only necessary data for specified purposes",
+      "weight": 0.12,
+      "article": "Article 5(1)(c)"
+    },
+    "purpose_limitation": {
+      "name": "Purpose Limitation",
+      "description": "Uses data only for stated, explicit purposes",
+      "weight": 0.12,
+      "article": "Article 5(1)(b)"
+    },
+    "storage_limitation": {
+      "name": "Storage Limitation",
+      "description": "Defines retention period and deletion policy",
+      "weight": 0.10,
+      "article": "Article 5(1)(e)"
+    },
+    "accuracy": {
+      "name": "Accuracy",
+      "description": "Ensures data accuracy and provides correction mechanisms",
+      "weight": 0.08,
+      "article": "Article 5(1)(d)"
+    },
+    "integrity_confidentiality": {
+      "name": "Integrity & Confidentiality",
+      "description": "Implements appropriate security measures",
+      "weight": 0.10,
+      "article": "Article 5(1)(f)"
+    },
+    "lawfulness": {
+      "name": "Lawfulness",
+      "description": "Has legal basis for data processing",
+      "weight": 0.15,
+      "article": "Article 6"
+    },
+    "transparency": {
+      "name": "Transparency",
+      "description": "Clear, readable, and accessible information",
+      "weight": 0.10,
+      "article": "Article 5(1)(a)"
+    },
+    "consent": {
+      "name": "Consent",
+      "description": "Obtains and manages user consent properly",
+      "weight": 0.10,
+      "article": "Article 7"
+    },
+    "data_subject_rights": {
+      "name": "Data Subject Rights",
+      "description": "Provides access, deletion, and portability rights",
+      "weight": 0.08,
+      "article": "Articles 15-20"
+    },
+    "dpo_contact": {
+      "name": "DPO Contact",
+      "description": "Provides Data Protection Officer contact information",
+      "weight": 0.05,
+      "article": "Articles 37-39"
+    }
+  }
+}
