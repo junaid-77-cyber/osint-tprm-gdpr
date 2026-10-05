@@ -577,8 +577,8 @@ if start_button and domain:
             progress_bar.progress(40)
 
             classifier = NLPClassifier()
-            if osint_report.policy_text:
-                nlp_results = classifier.classify(osint_report.policy_text)
+            if osint_report.policy.text:
+                nlp_results = classifier.classify(osint_report.policy.text)
             else:
                 nlp_results = {control: 0.0 for control in [
                     "data_minimization", "purpose_limitation", "storage_limitation",
@@ -761,19 +761,20 @@ if st.session_state.assessment_complete and st.session_state.result:
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        dns_status = "✅ Secure" if osint_report.dns_secure else "⚠️ Issues"
+        dns_secure = osint_report.dns.has_spf and osint_report.dns.has_dmarc
+        dns_status = "✅ Secure" if dns_secure else "⚠️ Issues"
         st.metric("DNS Security", dns_status)
 
     with col2:
-        tls_status = "✅ Valid" if osint_report.tls_valid else "⚠️ Issues"
+        tls_status = "✅ Valid" if osint_report.tls.is_secure else "⚠️ Issues"
         st.metric("TLS Certificate", tls_status)
 
     with col3:
-        breach_count = len(osint_report.breaches) if osint_report.breaches else 0
+        breach_count = osint_report.breach.breach_count
         st.metric("Data Breaches", f"{breach_count} found")
 
     with col4:
-        policy_status = "✅ Found" if osint_report.policy_found else "❌ Missing"
+        policy_status = "✅ Found" if osint_report.policy.found else "❌ Missing"
         st.metric("Privacy Policy", policy_status)
 
     st.markdown('</div>', unsafe_allow_html=True)
@@ -826,19 +827,33 @@ if st.session_state.assessment_complete and st.session_state.result:
 
     with tab2:
         st.markdown("#### DNS Security")
-        st.write(f"Status: {'✅ Secure' if osint_report.dns_secure else '⚠️ Issues Detected'}")
+        dns_secure = osint_report.dns.has_spf and osint_report.dns.has_dmarc
+        st.write(f"Status: {'✅ Secure' if dns_secure else '⚠️ Issues Detected'}")
+        st.write(f"- SPF Record: {'✅' if osint_report.dns.has_spf else '❌'}")
+        st.write(f"- DMARC Record: {'✅' if osint_report.dns.has_dmarc else '❌'}")
+        st.write(f"- DNSSEC: {'✅' if osint_report.dns.has_dnssec else '❌'}")
 
         st.markdown("#### TLS Certificate")
-        st.write(f"Status: {'✅ Valid' if osint_report.tls_valid else '⚠️ Invalid or Expired'}")
+        st.write(f"Status: {'✅ Valid' if osint_report.tls.is_secure else '⚠️ Invalid or Expired'}")
+        if osint_report.tls.tls_version:
+            st.write(f"- TLS Version: {osint_report.tls.tls_version}")
+        if osint_report.tls.days_until_expiry:
+            st.write(f"- Days Until Expiry: {osint_report.tls.days_until_expiry}")
 
         st.markdown("#### Data Breaches")
-        if osint_report.breaches:
-            st.write(f"⚠️ {len(osint_report.breaches)} breach(es) found in HaveIBeenPwned database")
+        if osint_report.breach.has_breaches:
+            st.write(f"⚠️ {osint_report.breach.breach_count} breach(es) found in HaveIBeenPwned database")
+            if osint_report.breach.breaches:
+                for breach in osint_report.breach.breaches[:5]:
+                    st.write(f"  - {breach}")
         else:
             st.write("✅ No known breaches found")
 
         st.markdown("#### Privacy Policy")
-        st.write(f"Status: {'✅ Found and analyzed' if osint_report.policy_found else '❌ Not found'}")
+        st.write(f"Status: {'✅ Found and analyzed' if osint_report.policy.found else '❌ Not found'}")
+        if osint_report.policy.found:
+            st.write(f"- Word Count: {osint_report.policy.word_count}")
+            st.write(f"- Readability Score: {osint_report.policy.readability_score:.1f}")
 
     with tab3:
         export_data = {
@@ -848,10 +863,28 @@ if st.session_state.assessment_complete and st.session_state.result:
             'risk_level': risk_level,
             'gdpr_controls': {k: nlp_results.get(k, 0.0) for k in controls_map.keys()},
             'osint': {
-                'dns_secure': osint_report.dns_secure,
-                'tls_valid': osint_report.tls_valid,
-                'breach_count': len(osint_report.breaches) if osint_report.breaches else 0,
-                'policy_found': osint_report.policy_found
+                'dns': {
+                    'has_spf': osint_report.dns.has_spf,
+                    'has_dmarc': osint_report.dns.has_dmarc,
+                    'has_dnssec': osint_report.dns.has_dnssec,
+                    'security_score': osint_report.dns.security_score
+                },
+                'tls': {
+                    'is_secure': osint_report.tls.is_secure,
+                    'has_valid_cert': osint_report.tls.has_valid_cert,
+                    'tls_version': osint_report.tls.tls_version,
+                    'days_until_expiry': osint_report.tls.days_until_expiry
+                },
+                'breach': {
+                    'breach_count': osint_report.breach.breach_count,
+                    'has_breaches': osint_report.breach.has_breaches,
+                    'breaches': osint_report.breach.breaches
+                },
+                'policy': {
+                    'found': osint_report.policy.found,
+                    'word_count': osint_report.policy.word_count,
+                    'readability_score': osint_report.policy.readability_score
+                }
             }
         }
 
