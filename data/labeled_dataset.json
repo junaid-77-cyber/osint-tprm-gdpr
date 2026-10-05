@@ -1,0 +1,407 @@
+{
+  "version": "1.0",
+  "created": "2026-10-05",
+  "description": "Labeled privacy policy dataset for GDPR compliance training",
+  "domains": [
+    {
+      "domain": "github.com",
+      "sector": "technology",
+      "policy_text": "GitHub Privacy Statement. We collect information directly from you for your registration and use of our Service. We collect personal data from you including your name email address username and payment information. We use your information to provide the Service communicate with you and improve our products. You have rights to access rectify erase and port your data. We retain your data as long as your account is active. We use cookies and similar technologies. We share data with service providers and as required by law. GitHub is a data controller. You can contact our Data Protection Officer. We use encryption and security measures to protect your data. You have the right to lodge a complaint with a supervisory authority.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Strong GDPR compliance with clear DPO contact and data subject rights"
+    },
+    {
+      "domain": "google.com",
+      "sector": "technology",
+      "policy_text": "Google Privacy Policy. We collect information you provide location data device information and data from cookies. We use data to provide services maintain security and develop new features. We share information with affiliates service providers and when legally required. You can access update and delete your data. We retain data based on the type of data and how it is used. We use encryption SSL and security measures. You have the right to object to processing. Google complies with EU-US Privacy Shield. Contact our Data Protection Officer for privacy questions.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Comprehensive privacy policy with strong GDPR compliance"
+    },
+    {
+      "domain": "facebook.com",
+      "sector": "social_media",
+      "policy_text": "Facebook Data Policy. We collect content you create connections you make usage data device information and data from partners. We use your information to provide personalize and improve our products show ads and communicate with you. We share data with partners vendors service providers and other Facebook companies. You can access port and delete your information. We retain data until no longer necessary. We use security measures including encryption. You can contact us about your data rights.",
+      "gdpr_controls": {
+        "data_minimization": false,
+        "purpose_limitation": true,
+        "storage_limitation": false,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": false,
+        "data_subject_rights": true,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "MEDIUM",
+      "notes": "Issues with data minimization, storage limitation, consent clarity, and missing DPO contact"
+    },
+    {
+      "domain": "amazon.com",
+      "sector": "ecommerce",
+      "policy_text": "Amazon Privacy Notice. We collect information you give us automatically collected information and information from other sources. We use your information to provide fulfill and recommend products communicate with you and prevent fraud. We share information with third party service providers and as required by law. You can access your information and make choices about collection and use. We keep your information as long as necessary for legitimate business purposes. We use encryption and physical safeguards. Contact Customer Service for privacy questions.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "MEDIUM",
+      "notes": "Missing explicit DPO contact information"
+    },
+    {
+      "domain": "microsoft.com",
+      "sector": "technology",
+      "policy_text": "Microsoft Privacy Statement. We collect data you provide data about your use of our products and data from third parties. We use data to provide products maintain security recommend features and communicate. We share data with your consent to complete transactions with vendors and to comply with law. You have the right to access correct delete and object to processing. We retain data as long as necessary for legitimate business purposes. We use encryption access controls and security measures. Contact our Data Protection Officer with privacy questions.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Excellent GDPR compliance with comprehensive controls"
+    },
+    {
+      "domain": "twitter.com",
+      "sector": "social_media",
+      "policy_text": "Twitter Privacy Policy. We collect information you share contact data and usage information. We use data to operate improve and personalize our services show ads and keep our platform safe. We share information with service providers and when legally required. You can access and update your information. We keep data for as long as necessary. We use security measures to protect data. You can contact us about your privacy rights.",
+      "gdpr_controls": {
+        "data_minimization": false,
+        "purpose_limitation": true,
+        "storage_limitation": false,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": false,
+        "consent": false,
+        "data_subject_rights": true,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "HIGH",
+      "notes": "Multiple compliance issues: data minimization, storage limitation, transparency, consent, DPO contact"
+    },
+    {
+      "domain": "apple.com",
+      "sector": "technology",
+      "policy_text": "Apple Privacy Policy. We collect data you provide to use our services device data and usage information. We collect only data necessary for our stated purposes. We use your data to provide services improve our products send communications and prevent fraud. We do not share your data with third parties for their marketing purposes. You can access correct and delete your personal data. We retain data only as long as necessary to fulfill stated purposes. We use encryption secure transmission and physical security. Contact our Data Protection Officer for privacy questions.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Excellent privacy-first approach with strong GDPR compliance"
+    },
+    {
+      "domain": "netflix.com",
+      "sector": "entertainment",
+      "policy_text": "Netflix Privacy Statement. We collect information you provide device identifiers and usage information. We use information to provide recommend and improve our service send communications and prevent fraud. We share data with service providers partners and for legal reasons. You can access and download your information. We keep information as long as your account is active. We use administrative technical and physical safeguards. Contact us for privacy requests.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "MEDIUM",
+      "notes": "Missing explicit DPO contact"
+    },
+    {
+      "domain": "spotify.com",
+      "sector": "entertainment",
+      "policy_text": "Spotify Privacy Policy. We collect registration data usage data technical data and information from partners. We use data to provide personalize and optimize our service show relevant ads and fulfill legal obligations. We share data with service providers business partners and advertisers. You can access update and delete your data. We keep data as long as necessary for our legitimate business purposes. We use encryption and security measures. Contact our Data Protection Officer with questions.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Good GDPR compliance with clear DPO contact"
+    },
+    {
+      "domain": "uber.com",
+      "sector": "transportation",
+      "policy_text": "Uber Privacy Notice. We collect location data transaction information device information and user content. We use data to provide services enable communications send marketing and maintain safety. We share data with riders drivers and third party service providers. You can access your data. We retain data for legal compliance and legitimate business interests. We use encryption and security measures. Contact support for privacy questions.",
+      "gdpr_controls": {
+        "data_minimization": false,
+        "purpose_limitation": true,
+        "storage_limitation": false,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": false,
+        "consent": false,
+        "data_subject_rights": false,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "HIGH",
+      "notes": "Multiple issues: excessive data collection, unclear retention, weak data subject rights, no DPO"
+    },
+    {
+      "domain": "airbnb.com",
+      "sector": "hospitality",
+      "policy_text": "Airbnb Privacy Policy. We collect account information listing information and usage data. We use data to provide enable and improve Airbnb process transactions and send administrative messages. We share data with other members service providers and business partners. You can access and export your data and request deletion. We retain data as necessary for legal compliance and legitimate business purposes. We implement security measures including encryption. Contact our Data Protection Officer for privacy matters.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Strong GDPR compliance across all controls"
+    },
+    {
+      "domain": "linkedin.com",
+      "sector": "social_media",
+      "policy_text": "LinkedIn Privacy Policy. We collect profile data usage data and cookies data. We use data to provide maintain and improve our services send communications and show relevant ads. We share data with affiliates service providers and upon your request. You can access port and delete your information. We retain data while your account is open and as needed. We use encryption and security controls. Contact our Data Protection Officer.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Good GDPR compliance with professional data handling"
+    },
+    {
+      "domain": "zoom.us",
+      "sector": "technology",
+      "policy_text": "Zoom Privacy Statement. We collect account information meeting content usage data and device information. We use information to provide services improve products and communicate with you. We share data with third party service providers and as legally required. You can access review and delete your personal data. We retain data as long as necessary for business purposes. We use encryption and access controls. Contact our Data Protection Officer.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Comprehensive GDPR compliance"
+    },
+    {
+      "domain": "tiktok.com",
+      "sector": "social_media",
+      "policy_text": "TikTok Privacy Policy. We collect profile information user content technical information and location data. We use data to provide maintain improve and develop features show ads and support users. We share data with service providers partners and authorities when required. You can access and download your data. We keep information as long as necessary. We implement security measures. Contact us for privacy inquiries.",
+      "gdpr_controls": {
+        "data_minimization": false,
+        "purpose_limitation": false,
+        "storage_limitation": false,
+        "accuracy": false,
+        "integrity_confidentiality": true,
+        "lawfulness": false,
+        "transparency": false,
+        "consent": false,
+        "data_subject_rights": true,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "HIGH",
+      "notes": "Serious compliance issues across multiple controls, concerns about data handling"
+    },
+    {
+      "domain": "reddit.com",
+      "sector": "social_media",
+      "policy_text": "Reddit Privacy Policy. We collect account information content you submit usage data and cookies. We use information to provide our services show ads and improve Reddit. We share data with service providers advertisers and other users per your settings. You can access and delete your account. We keep some data even after deletion for legal purposes. We use reasonable security measures. Contact us about privacy.",
+      "gdpr_controls": {
+        "data_minimization": false,
+        "purpose_limitation": true,
+        "storage_limitation": false,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": false,
+        "data_subject_rights": false,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "HIGH",
+      "notes": "Multiple issues: data minimization, storage limitations, consent, data subject rights, no DPO"
+    },
+    {
+      "domain": "stripe.com",
+      "sector": "finance",
+      "policy_text": "Stripe Privacy Policy. We collect information you provide transaction data device data and information from third parties. We use data to provide payment services prevent fraud comply with legal obligations and communicate with you. We share data with financial partners service providers and as required by law. You can access and request deletion of your information. We retain data as required for legal compliance and fraud prevention. We use encryption tokenization and strict access controls. Contact our Data Protection Officer for privacy matters.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Excellent compliance for payment processor with strong security"
+    },
+    {
+      "domain": "paypal.com",
+      "sector": "finance",
+      "policy_text": "PayPal Privacy Statement. We collect identification information financial information transaction information and device information. We use data to provide services manage risk comply with laws and market our services. We share data with PayPal companies service providers and other third parties. You can access your information. We keep information as long as necessary for our business or legal purposes. We maintain physical electronic and procedural safeguards. Contact our Data Protection Officer.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Strong compliance for financial services"
+    },
+    {
+      "domain": "dropbox.com",
+      "sector": "technology",
+      "policy_text": "Dropbox Privacy Policy. We collect account information files you upload usage information and device information. We use data to provide services send communications and improve our products. We share data with your permission with service providers and for legal reasons. You can access export and delete your data. We retain data while your account is active and for legitimate business purposes after closure. We use encryption and security measures. Contact our Data Protection Officer.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Strong data protection for cloud storage"
+    },
+    {
+      "domain": "slack.com",
+      "sector": "technology",
+      "policy_text": "Slack Privacy Policy. We collect account information customer data usage information and device data. We use information to provide services communicate and improve our platform. We share data with service providers affiliates and as required by law. You can access update and delete your information. We retain data as long as necessary for business and legal purposes. We use industry standard security measures including encryption. Contact our Data Protection Officer.",
+      "gdpr_controls": {
+        "data_minimization": true,
+        "purpose_limitation": true,
+        "storage_limitation": true,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": true,
+        "consent": true,
+        "data_subject_rights": true,
+        "dpo_contact": true
+      },
+      "overall_compliant": true,
+      "risk_level": "LOW",
+      "notes": "Comprehensive GDPR compliance for enterprise communication"
+    },
+    {
+      "domain": "snapchat.com",
+      "sector": "social_media",
+      "policy_text": "Snapchat Privacy Policy. We collect content you create account information usage data location data and device information. We use data to provide improve and develop services communicate and show ads. We share data with other Snapchatters service providers business partners and for legal reasons. You can access download and delete your data. We keep most content for limited time but some data longer. We use security measures. Contact us about privacy.",
+      "gdpr_controls": {
+        "data_minimization": false,
+        "purpose_limitation": true,
+        "storage_limitation": false,
+        "accuracy": true,
+        "integrity_confidentiality": true,
+        "lawfulness": true,
+        "transparency": false,
+        "consent": false,
+        "data_subject_rights": true,
+        "dpo_contact": false
+      },
+      "overall_compliant": false,
+      "risk_level": "MEDIUM",
+      "notes": "Issues with data minimization, storage limits, transparency, consent and DPO"
+    }
+  ]
+}
