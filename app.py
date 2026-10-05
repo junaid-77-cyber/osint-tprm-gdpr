@@ -5,6 +5,7 @@ import pandas as pd
 from osint.collector import OSINTCollector
 from analysis.nlp_classifier import NLPClassifier
 from analysis.risk_scorer import RiskScorer
+from analysis.policy_analyzer import DetailedPolicyAnalyzer
 import json
 import time
 
@@ -827,7 +828,7 @@ if st.session_state.assessment_complete and st.session_state.result:
     st.markdown('<div class="result-card">', unsafe_allow_html=True)
     st.markdown('<div class="result-title">📑 Detailed Breakdown</div>', unsafe_allow_html=True)
 
-    tab1, tab2, tab3 = st.tabs(["📋 Control Scores", "🔍 OSINT Details", "📥 Export"])
+    tab1, tab2, tab3, tab4 = st.tabs(["📋 Control Scores", "🔍 OSINT Details", "🔬 Policy Analysis", "📥 Export"])
 
     with tab1:
         df = pd.DataFrame({
@@ -900,6 +901,106 @@ if st.session_state.assessment_complete and st.session_state.result:
                 st.write(f"- Error: {osint_report.policy.error}")
 
     with tab3:
+        st.markdown("### 🔬 Line-by-Line Policy Analysis")
+        st.markdown("**Pinpoint exact errors and get specific recommendations**")
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Run detailed analysis
+        analyzer = DetailedPolicyAnalyzer()
+        issues = analyzer.analyze(osint_report.policy.text if osint_report.policy.text else "", nlp_results)
+
+        if issues:
+            st.markdown(f"**Found {len(issues)} issues requiring attention:**")
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            for i, issue in enumerate(issues, 1):
+                # Color code by severity
+                if issue.severity == "CRITICAL":
+                    badge_color = "#DC2626"
+                    badge_bg = "#FEE2E2"
+                elif issue.severity == "HIGH":
+                    badge_color = "#F59E0B"
+                    badge_bg = "#FEF3C7"
+                else:
+                    badge_color = "#3B82F6"
+                    badge_bg = "#DBEAFE"
+
+                st.markdown(f"""
+                <div style="background: white; border-left: 6px solid {badge_color}; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="background: {badge_bg}; color: {badge_color}; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem;">
+                            {issue.severity}
+                        </span>
+                        <span style="color: #FF6B35; font-weight: 700; font-size: 1.3rem;">
+                            Issue #{i}: {issue.control}
+                        </span>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <div style="font-weight: 700; color: #DC2626; margin-bottom: 0.5rem; font-size: 1.1rem;">
+                            ❌ Missing Element:
+                        </div>
+                        <div style="background: #FFF5F5; padding: 1rem; border-radius: 8px; color: #6B4423; line-height: 1.7;">
+                            {issue.missing_element}
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <div style="font-weight: 700; color: #2563EB; margin-bottom: 0.5rem; font-size: 1.1rem;">
+                            ✅ Recommended Fix:
+                        </div>
+                        <div style="background: #F0F9FF; padding: 1rem; border-radius: 8px; color: #6B4423; line-height: 1.7;">
+                            {issue.recommendation}
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <div style="font-weight: 700; color: #059669; margin-bottom: 0.5rem; font-size: 1.1rem;">
+                            📝 Example Text to Add:
+                        </div>
+                        <div style="background: #F0FDF4; padding: 1rem; border-radius: 8px; border: 2px dashed #059669; color: #6B4423; line-height: 1.7; font-style: italic;">
+                            "{issue.example}"
+                        </div>
+                    </div>
+
+                    <div style="margin: 1.5rem 0;">
+                        <div style="font-weight: 700; color: #7C3AED; margin-bottom: 0.5rem; font-size: 1.1rem;">
+                            ⚖️ Why This Matters:
+                        </div>
+                        <div style="background: #FAF5FF; padding: 1rem; border-radius: 8px; color: #6B4423; line-height: 1.7;">
+                            {issue.why_it_matters}
+                        </div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+        else:
+            st.success("✅ No major policy issues detected! Your privacy policy appears to be comprehensive.")
+
+        # Download detailed report
+        if issues:
+            report_text = f"PRIVACY POLICY ANALYSIS REPORT\n"
+            report_text += f"Domain: {result['domain']}\n"
+            report_text += f"Date: {time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            report_text += f"Issues Found: {len(issues)}\n"
+            report_text += "="*80 + "\n\n"
+
+            for i, issue in enumerate(issues, 1):
+                report_text += f"ISSUE #{i}: {issue.control}\n"
+                report_text += f"Severity: {issue.severity}\n"
+                report_text += f"\nMissing Element:\n{issue.missing_element}\n"
+                report_text += f"\nRecommended Fix:\n{issue.recommendation}\n"
+                report_text += f"\nExample Text:\n{issue.example}\n"
+                report_text += f"\nWhy It Matters:\n{issue.why_it_matters}\n"
+                report_text += "\n" + "="*80 + "\n\n"
+
+            st.download_button(
+                label="📥 Download Detailed Analysis Report",
+                data=report_text,
+                file_name=f"policy_analysis_{result['domain']}_{time.strftime('%Y%m%d')}.txt",
+                mime="text/plain"
+            )
+
+    with tab4:
         export_data = {
             'domain': result['domain'],
             'assessment_date': time.strftime('%Y-%m-%d %H:%M:%S'),
