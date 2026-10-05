@@ -1,0 +1,44 @@
+# Streamlit Security Configuration
+
+[server]
+# Disable file watcher in production
+fileWatcherType = "none"
+
+# Disable CORS in production (use reverse proxy)
+enableCORS = false
+
+# Disable XSS protection bypass
+enableXsrfProtection = true
+
+# Production server settings
+headless = true
+runOnSave = false
+port = 8501
+
+# Security settings
+maxUploadSize = 10
+maxMessageSize = 200
+
+[browser]
+# Disable telemetry
+gatherUsageStats = false
+
+# Server address
+serverAddress = "localhost"
+
+[theme]
+# Professional theme
+primaryColor = "#2563eb"
+backgroundColor = "#f5f7fa"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#1a202c"
+font = "sans serif"
+
+[logger]
+# Set to WARNING or ERROR in production
+level = "WARNING"
+
+[client]
+# Disable telemetry
+toolbarMode = "minimal"
+showErrorDetails = false
