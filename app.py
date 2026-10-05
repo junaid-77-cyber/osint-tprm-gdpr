@@ -902,77 +902,41 @@ if st.session_state.assessment_complete and st.session_state.result:
 
     with tab3:
         st.markdown("### 🔬 Line-by-Line Policy Analysis")
-        st.markdown("**Pinpoint exact errors and get specific recommendations**")
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.info("💡 **Pinpoint exact errors and get specific copy-paste recommendations**")
 
         # Run detailed analysis
         analyzer = DetailedPolicyAnalyzer()
         issues = analyzer.analyze(osint_report.policy.text if osint_report.policy.text else "", nlp_results)
 
         if issues:
-            st.markdown(f"**Found {len(issues)} issues requiring attention:**")
-            st.markdown("<br>", unsafe_allow_html=True)
+            st.write(f"**Found {len(issues)} issues requiring attention:**")
+            st.write("")
 
             for i, issue in enumerate(issues, 1):
                 # Color code by severity
                 if issue.severity == "CRITICAL":
-                    badge_color = "#DC2626"
-                    badge_bg = "#FEE2E2"
+                    severity_emoji = "🔴"
                 elif issue.severity == "HIGH":
-                    badge_color = "#F59E0B"
-                    badge_bg = "#FEF3C7"
+                    severity_emoji = "🟠"
                 else:
-                    badge_color = "#3B82F6"
-                    badge_bg = "#DBEAFE"
+                    severity_emoji = "🔵"
 
-                st.markdown(f"""
-                <div style="background: white; border-left: 6px solid {badge_color}; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                        <span style="background: {badge_bg}; color: {badge_color}; padding: 0.5rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem;">
-                            {issue.severity}
-                        </span>
-                        <span style="color: #FF6B35; font-weight: 700; font-size: 1.3rem;">
-                            Issue #{i}: {issue.control}
-                        </span>
-                    </div>
+                # Use expander for clean display
+                with st.expander(f"{severity_emoji} **Issue #{i}: {issue.control}** [{issue.severity}]", expanded=(i <= 3)):
 
-                    <div style="margin: 1.5rem 0;">
-                        <div style="font-weight: 700; color: #DC2626; margin-bottom: 0.5rem; font-size: 1.1rem;">
-                            ❌ Missing Element:
-                        </div>
-                        <div style="background: #FFF5F5; padding: 1rem; border-radius: 8px; color: #6B4423; line-height: 1.7;">
-                            {issue.missing_element}
-                        </div>
-                    </div>
+                    st.markdown("#### ❌ Missing Element:")
+                    st.error(issue.missing_element)
 
-                    <div style="margin: 1.5rem 0;">
-                        <div style="font-weight: 700; color: #2563EB; margin-bottom: 0.5rem; font-size: 1.1rem;">
-                            ✅ Recommended Fix:
-                        </div>
-                        <div style="background: #F0F9FF; padding: 1rem; border-radius: 8px; color: #6B4423; line-height: 1.7;">
-                            {issue.recommendation}
-                        </div>
-                    </div>
+                    st.markdown("#### ✅ Recommended Fix:")
+                    st.info(issue.recommendation)
 
-                    <div style="margin: 1.5rem 0;">
-                        <div style="font-weight: 700; color: #059669; margin-bottom: 0.5rem; font-size: 1.1rem;">
-                            📝 Example Text to Add:
-                        </div>
-                        <div style="background: #F0FDF4; padding: 1rem; border-radius: 8px; border: 2px dashed #059669; color: #6B4423; line-height: 1.7; font-style: italic;">
-                            "{issue.example}"
-                        </div>
-                    </div>
+                    st.markdown("#### 📝 Copy-Paste This Text:")
+                    st.success(f'"{issue.example}"')
 
-                    <div style="margin: 1.5rem 0;">
-                        <div style="font-weight: 700; color: #7C3AED; margin-bottom: 0.5rem; font-size: 1.1rem;">
-                            ⚖️ Why This Matters:
-                        </div>
-                        <div style="background: #FAF5FF; padding: 1rem; border-radius: 8px; color: #6B4423; line-height: 1.7;">
-                            {issue.why_it_matters}
-                        </div>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                    st.markdown("#### ⚖️ Why This Matters:")
+                    st.warning(issue.why_it_matters)
+
+                    st.markdown("---")
         else:
             st.success("✅ No major policy issues detected! Your privacy policy appears to be comprehensive.")
 
